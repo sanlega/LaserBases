@@ -37,10 +37,23 @@ The timer unit tracks the game's progress. It uses an Adafruit NeoMatrix to disp
 ## Installation 📋
 1. Assemble the hardware according to the schematics.
 2. Upload `base.ino` to each base unit Arduino.
-    Modify the
-    ```const uint16_t this_node = 01; // Unique node address for this base  | IMPORTANT: Each node can hanle 5 sub nodes, After 01 goes 11, 21, 31, 41 and 51.```
 3. Upload `timer.ino` to the timer unit Arduino.
 4. Power up the system and test.
 
-## Contributing 🤝
-Feel free to fork this project and contribute to its development. Your ideas for improvements or new features are always welcome!
+## Configuring Base Addresses 🌐
+
+### Unique Node Addressing
+Each base in the game needs a unique node address to communicate correctly with the central timer. This is set by the `const uint16_t this_node` line in the `base.ino` code.
+
+### How to Set Unique Addresses
+- In the `base.ino` file, locate the line `const uint16_t this_node = 01;`.
+- The `01` in this line is the unique address for the first base. 
+- For each additional base, you will need to assign a different address.
+- Follow a sequential pattern for ease of organization. For example:
+  - Base 1: `const uint16_t this_node = 01;`
+  - Base 2: `const uint16_t this_node = 11;`
+  - Base 3: `const uint16_t this_node = 21;`
+  - And so on, up to Base 10: `const uint16_t this_node = 91;`.
+
+### Important Note 📝
+Each base can handle up to 5 sub-nodes. Therefore, addresses should be incremented in tens (01, 11, 21, etc.), allowing space for potential sub-nodes under each main base node.
