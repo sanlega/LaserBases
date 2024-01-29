@@ -10,7 +10,7 @@ This project presents a physical accuracy test game using Arduino, RF communicat
 - NeoPixel 24 LEDs Rings 💡
 - 3 NeoPixel 16x16 LED matrix (16x48 pixel's display)
 
-- 3D printed cases.
+- 3D printed cases (The timer case is divided in 2 parts that have to be glued in. If using an smaller matrix, there are many cases online)
 
 ## Gameplay 🕹️
 - **Start:** The game starts with all bases displaying red lights 🔴.
