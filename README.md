@@ -1,6 +1,6 @@
-# 🎯 Arduino Target Timer Game 🕒
+# 🎯 Arduino Accuracy Game 🕒
 
-Welcome to the Arduino Target Timer Game! This project allows you to create a fun target shooting game using Arduino and ESP32/ESP8266 microcontrollers. The game consists of two main components: Targets and Timer.
+Welcome to the Arduino Accuracy Game! This project allows you to create a fun target shooting game using Arduino and ESP32/ESP8266 microcontrollers. The game consists of two main components: Targets and Timer.
 
 ## Targets 🎯
 
