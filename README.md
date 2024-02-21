@@ -1,59 +1,71 @@
-# 🎮 Arduino-Based Accuracy Test Game
+# 🎯 Arduino Target Timer Game 🕒
 
-## Overview 🌟
-This project presents a physical accuracy test game using Arduino, RF communication, and NeoPixels. It includes ten interactive bases with IR sensors and a central timer unit. The objective is to hit all bases as quickly as possible. When a base is hit, its LED ring lights change from red to green 🚦, and the timer stops once all bases are hit, displaying the player's time ⏱️.
+Welcome to the Arduino Target Timer Game! This project allows you to create a fun target shooting game using Arduino and ESP32/ESP8266 microcontrollers. The game consists of two main components: Targets and Timer.
 
-## Hardware Requirements 🛠️
-- X Arduino (one for each base)
-- RF24 modules for wireless communication 📡
-- IR sensors for hit detection 🎯
-- NeoPixel 24 LEDs Rings 💡
-- 3 NeoPixel 16x16 LED matrix (16x48 pixel's display)
+## Targets 🎯
 
-- 3D printed cases (The timer case is divided in 2 parts that have to be glued in. If using an smaller matrix, there are many cases online)
+The Targets code controls the behavior of each target in the game. Each target is equipped with an IR receiver to detect hits and a NeoPixel LED strip to indicate the hit status. Targets communicate with the Timer using the ESP-NOW protocol.
 
-## Gameplay 🕹️
-- **Start:** The game starts with all bases displaying red lights 🔴.
-- **Action:** Players hit the bases, which are detected by IR sensors.
-- **Scoring:** Upon hitting a base, its lights turn green 🟢.
-- **End:** The game ends when all bases are hit, and the timer displays the total time taken 🏁.
+### Dependencies
 
-## Base Unit Code (`base.ino`) 💻
-This code controls the individual bases. Each base has an IR sensor and a Ring of NeoPixels. The base listens for hits via the IR sensor. When hit, it communicates with the central timer via RF24 to log the event.
+- Adafruit_NeoPixel library
+- IRremote library
+- ESP-NOW library
+- WiFi library
 
-### Key Features
-- IR sensor integration for hit detection 🎯.
-- NeoPixel control for visual feedback (red for inactive, green for hit) 🚦.
-- RF24 communication to signal the central timer 📡.
+### Components Used
 
-## Timer Unit Code (`timer.ino`) ⏲️
-The timer unit tracks the game's progress. It uses an Adafruit NeoMatrix to display the time and communicates with each base to determine when they are hit.
+- NeoPixel LED strip
+- IR receiver module
+- ESP32 microcontroller
+- ESP8266 microcontroller (optional)
 
-### Key Features
-- LED Matrix display for the timer ⏱️.
-- RF24 network to receive signals from bases 📡.
-- Button to start/reset the game 🔄.
+### Configuration 🛠️
 
-## Installation 📋
-1. Assemble the hardware according to the schematics.
-2. Upload `base.ino` to each base unit Arduino.
-3. Upload `timer.ino` to the timer unit Arduino.
-4. Power up the system and test.
+- **Target ID:** Change the `TARGET_ID` variable in the code to assign a unique ID to each target.
+- **Total Number of Targets:** Update the `totalTargets` variable to match the actual number of targets in your setup.
+- **MAC Address:** Manually add the MAC address of the Timer to the `targetMACs` array in the Targets code.
 
-## Configuring Base Addresses 🌐
+### Usage 🚀
 
-### Unique Node Addressing
-Each base in the game needs a unique node address to communicate correctly with the central timer. This is set by the `const uint16_t this_node` line in the `base.ino` code.
+1. Install the required libraries.
+2. Upload the code to your ESP32/ESP8266 board.
+3. Connect the components according to the pin configuration.
+4. Power on the targets and ensure they are within range of the Timer.
 
-### How to Set Unique Addresses
-- In the `base.ino` file, locate the line `const uint16_t this_node = 01;`.
-- The `01` in this line is the unique address for the first base. 
-- For each additional base, you will need to assign a different address.
-- Follow a sequential pattern for ease of organization. For example:
-  - Base 1: `const uint16_t this_node = 01;`
-  - Base 2: `const uint16_t this_node = 11;`
-  - Base 3: `const uint16_t this_node = 21;`
-  - And so on, up to Base 10: `const uint16_t this_node = 91;`.
+## Timer ⏱️
 
-### Important Note 📝
-Each base can handle up to 5 sub-nodes. Therefore, addresses should be incremented in tens (01, 11, 21, etc.), allowing space for potential sub-nodes under each main base node.
+The Timer code serves as the central control unit for the game. It manages the countdown, tracks hits on targets, and determines the end of the game. The Timer communicates with the Targets using the ESP-NOW protocol.
+
+### Dependencies
+
+- ESP-NOW library
+- WiFi library
+
+### Components Used
+
+- ESP32 microcontroller
+
+### Configuration 🛠️
+
+- **MAC Address:** Manually add the MAC address of each target to the `targetMACs` array in the Timer code.
+
+### Usage 🚀
+
+1. Upload the code to your ESP32 board.
+2. Connect the reset button according to the pin configuration.
+3. Power on the Timer and ensure it is connected to the same Wi-Fi network as the Targets.
+
+## Extractor for MAC Address 🖥️
+
+This code snippet can be used to extract the MAC address of an ESP32 or ESP8266 board. It is helpful for obtaining the MAC addresses required for communication between the Timer and Targets.
+
+### Dependencies
+
+- WiFi library
+
+### Usage 🚀
+
+1. Upload the code to your ESP32/ESP8266 board.
+2. Open the serial monitor to view the MAC address printed by the board.
+
