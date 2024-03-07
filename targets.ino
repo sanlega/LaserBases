@@ -8,6 +8,7 @@
 #define LED_PIN 32           // NeoPixel LED strip pin
 #define NUM_PIXELS 16        // Number of pixels in the strip
 #define TARGET_ID 1          // Unique ID of the Target
+#define DELAY 100            // Assign only to the odd ID's
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
 IRrecv irrecv(IR_PIN);
@@ -64,6 +65,8 @@ void loop() {
 
       myData.id = TARGET_ID; // Target ID
       myData.hit = true;
+      if (ID % 2 == 0)
+        delay(DELAY);
       esp_now_send(timerMAC, (uint8_t *) &myData, sizeof(myData));
     }
     irrecv.resume();
