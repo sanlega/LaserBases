@@ -65,7 +65,7 @@ void loop() {
 
       myData.id = TARGET_ID; // Target ID
       myData.hit = true;
-      if (ID % 2 == 0)
+      if (ID % 2 == 0)        // Only applies the delay to even number targets
         delay(DELAY);
       esp_now_send(timerMAC, (uint8_t *) &myData, sizeof(myData));
     }
